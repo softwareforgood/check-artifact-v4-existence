@@ -1,4 +1,4 @@
-name: Check Artifact Existence
+name: Check Artifact v4 Existence
 description: Checks if an artifact with a given name, uploaded with actions/upload-artifact@v4, exists. If it does, the `exists` 
   property is set on the `outputs` context.
 
