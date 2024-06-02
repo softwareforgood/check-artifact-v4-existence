@@ -1,7 +1,7 @@
 Check Artifact v4 Existence
 ====
 
-A composite Github Action inspired by the very awesome [Check artifact exists](https://github.com/xSAVIKx/artifact-exists-action).
+A composite Github Action inspired by the very awesome[xSAVIKx/artifact-exists-action](https://github.com/xSAVIKx/artifact-exists-action)
 
 Checks if an artifact with a given name, uploaded with actions/upload-artifact@v4, exists. Only works with the actions/upload-artifact v4 and later, not versions v1-v3.
 
