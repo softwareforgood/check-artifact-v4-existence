@@ -13,7 +13,8 @@ jobs:
         with:
           name: "missing-artifact"
         id: "existence-check"
-      - run: |
+      - name: Fail when expected output isn't set
+        run: |
           exit 1
         if: ${{ steps.existence-check.outputs.exists != 'false' }}
   sets_true_when_there:
@@ -29,7 +30,8 @@ jobs:
         with:
           name: "artifact-that-exists"
         id: "existence-check"
-      - run: |
+      - name: Fail when expected output isn't set
+        run: |
           exit 1
         if: ${{ steps.existence-check.outputs.exists != 'true' }}
         
