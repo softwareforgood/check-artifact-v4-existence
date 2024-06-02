@@ -1,4 +1,4 @@
-name: "test"
+name: "CI Test for Github Action"
 on:
   workflow_dispatch:
   push:
