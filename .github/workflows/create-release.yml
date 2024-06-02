@@ -1,0 +1,32 @@
+name: "Create a new release"
+on:
+  workflow_dispatch:
+    inputs:
+      kind:
+        type: choice
+        options:
+          - "patch"
+          - "minor"
+          - "major"
+        default: "patch"
+        description: The type of version to create
+      
+permissions: 
+  contents: write
+
+jobs:
+  tweak-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: enricoGiga/next-semvar@v1.0.1
+        env:
+          SEMVER_LEVEL: patch
+        with:
+          repo_token: ${{github.token}}
+        id: version-checker
+
+      - run: |
+          gh release create v${{ steps.version-checker.outputs.next_version }} --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}
