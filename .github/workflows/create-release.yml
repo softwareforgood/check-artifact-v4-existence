@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: enricoGiga/next-semvar@v1.0.1
         env:
-          SEMVER_LEVEL: patch
+          SEMVER_LEVEL: ${{inputs.kind}}
         with:
           repo_token: ${{github.token}}
         id: version-checker
