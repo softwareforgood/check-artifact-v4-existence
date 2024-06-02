@@ -3,7 +3,7 @@ description: Checks if an artifact with a given name, uploaded with actions/uplo
   property is set on the `outputs` context.
 
   `exists` will be set to `true` if it the artifact was downloaded, `false` it couldn't be downloaded. It could also be `null`
-  if something thing in the composite workflow failed and it never couldn't got to the end, if the `download-artifact` call was skipped
+  if something in the composite workflow failed and it never couldn't got to the end, if the `download-artifact` call was skipped
   or something else strange happened.
 inputs:
   name:
