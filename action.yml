@@ -1,32 +1,38 @@
 name: Check Artifact Existence
-description: Check it
-# description from  https://github.com/actions/download-artifact/blob/c4c6db724f9510b2b3cff5ebcc417c87a2b2fa97/action.yml
+description: Checks if an artifact with a given name, uploaded with actions/upload-artifact@v4, exists. If it does, the `exists` 
+  property is set on the `outputs` context.
+
+  `exists will be set to `true` if it the artifact was downloaded, `false` it couldn't be downloaded. It could also be `null`
+  if something thing in the composite workflow failed and it never couldn't got to the end, if the `download-artifact` call was skipped
+  or something else strange happened.
 inputs:
   name:
     description: 'Name of the artifact to check'
     required: true
 outputs:
   exists:
-    description: Determines if the artifact with the provided name is present.
+    description: Determines if the artifact with the provided name is present and can be downloaded. 
     value: ${{ steps.result.outputs.exists }}
 runs:
   using: "composite"
   steps:
-    - name: generate random directory
+    - name: Generate random directory to download artifact into
       shell: bash
-      run: echo "random_number=$(($RANDOM))" >> $GITHUB_OUTPUT
+      run: echo "random_directory=d$(($RANDOM))" >> $GITHUB_OUTPUT
       id: gen-random
-    - uses: actions/download-artifact@v4
+    - name: Attempt to download the artifact
+      uses: actions/download-artifact@v4
       with:
         name: ${{ inputs.name }}
-        path: "${{ steps.gen-random.outputs.random_number }}/"
+        path: "${{ steps.gen-random.outputs.random_directory }}/"
       continue-on-error: true
       id: artifact-download
-    - run: |
-        rm -rf ${{ steps.gen-random.outputs.random_number }}/
+    - name: Delete the artifact download directory if it was used
+      run: |
+        rm -rf ${{ steps.gen-random.outputs.random_directory }}/
       shell: bash
-      if: ${{ steps.artifact-download.outcome == 'success' }}
-    - run: |
+    - name: Set exists to true if artifact exists, if it couldn't be downloaded. 
+      run: |
        echo "exists=${{ steps.artifact-download.outcome == 'success' }}" >> $GITHUB_OUTPUT
       shell: bash
       if: ${{ steps.artifact-download.outcome == 'success' || steps.artifact-download.outcome == 'failure'}}
