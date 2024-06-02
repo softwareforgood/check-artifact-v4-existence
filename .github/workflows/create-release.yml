@@ -10,6 +10,7 @@ on:
           - "major"
         default: "patch"
         description: The type of version to create
+run-name: Create new ${{inputs.kind}} release by ${{github.actor}}
       
 permissions: 
   contents: write
