@@ -1,8 +1,13 @@
 # LICENSE: LGPL-3.0-or-later
-name: "CI Test for Github Action"
+name: "Reusable workflow that tests whether the check artifact works when called from another workflow"
+
 on:
-  workflow_dispatch:
-  push:
+  workflow_call:
+    inputs:
+      name:
+        type: string
+        required: true
+        description: the artifact name to be checked for
 
 jobs:
   sets_false_on_missing:
@@ -12,38 +17,23 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./
         with:
-          name: "missing-artifact"
+          name: 'missing-dependency'
         id: "existence-check"
       - name: Fail when expected output isn't set
         run: |
           exit 1
         if: ${{ steps.existence-check.outputs.exists != 'false' }}
   sets_true_when_there:
-    name: Sets true when no artifact for the name exists
+    name: Sets true when artifact for the name exists
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/upload-artifact@v4
-        with:
-          name: "artifact-that-exists"
-          path: action.yml
       - uses: ./
         with:
-          name: "artifact-that-exists"
+          name: ${{inputs.name}}
         id: "existence-check"
       - name: Fail when expected output isn't set
         run: |
           exit 1
         if: ${{ steps.existence-check.outputs.exists != 'true' }}
-
-  test_via_reusable_workflow:
-    name: "Test checking when using a reusable workflow"
-    needs: [sets_true_when_there]
-    uses: './.github/workflows/reusable-workflow.yml'
-    with:
-      name: 'artifact-that-exists'
-  
-        
-        
-
       
