@@ -19,7 +19,7 @@ jobs:
           exit 1
         if: ${{ steps.existence-check.outputs.exists != 'false' }}
   sets_true_when_there:
-    name: Sets true when no artifact for the name exists
+    name: Sets true when artifact for the name exists
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
