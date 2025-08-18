@@ -9,7 +9,7 @@ jobs:
     name: Sets false when no artifact for the name exists
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ./
         with:
           name: "missing-artifact"
@@ -22,7 +22,7 @@ jobs:
     name: Sets true when artifact for the name exists
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/upload-artifact@v4
         with:
           name: "artifact-that-exists"
