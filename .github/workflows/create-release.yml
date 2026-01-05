@@ -20,7 +20,7 @@ jobs:
   tweak-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: enricoGiga/next-semvar@v1.0.1
         env:
           SEMVER_LEVEL: ${{inputs.kind}}
