@@ -3,7 +3,7 @@ name: Keep the major version up-to-date
 
 on:
   release:
-    types: [published, edited, released]
+    types: [released]
 
 jobs:
   actions-tagger:
