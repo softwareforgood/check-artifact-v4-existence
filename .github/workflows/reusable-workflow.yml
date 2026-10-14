@@ -14,8 +14,8 @@ jobs:
     name: Sets false when no artifact for the name exists
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: ./
+      - uses: actions/checkout@v6.1.0
+      - uses: $/
         with:
           name: 'missing-dependency'
         id: "existence-check"
@@ -27,8 +27,8 @@ jobs:
     name: Sets true when artifact for the name exists
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: ./
+      - uses: actions/checkout@v6.1.0
+      - uses: $/
         with:
           name: ${{inputs.name}}
         id: "existence-check"
