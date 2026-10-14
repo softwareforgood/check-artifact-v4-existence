@@ -4,8 +4,6 @@ name: Keep the major version up-to-date
 on:
   release:
     types: [published, edited]
-  workflow_call:
-  workflow_dispatch:
   
 
 jobs:
